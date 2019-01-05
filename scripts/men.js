@@ -1,32 +1,40 @@
-const app = document.getElementById('root');
+window.onload = function(){
+  const apiURL = "https://www.thesportsdb.com/api/v1/json/1/lookup_all_players.php?id=135490";
 
-const container = document.createElement('div');
-container.setAttribute('class', 'container');
+  const app = document.getElementById("root");
+  const container = document.createElement("div");
+  container.setAttribute('class', 'container');
 
-app.appendChild(container);
+  console.log(app == null);
+  $.ajax({
+    url: apiURL,
+    dataType: 'json',
+    type: 'get',
+    cache: false,
+    success: function(data){
+      $(data.player).each(function(index, value){
+          console.log(value.strPlayer);
+          const card = document.createElement('div')
+          card.setAttribute('class', card);
 
-var request = new XMLHttpRequest();
-request.open('GET', 'https://www.thesportsdb.com/api/v1/json/1/searchplayers.php?t=WWE%20Mens', true);
-request.onload = function () {
+          const h1 = document.createElement('h1');
+          h1.textContent = value.strPlayer;
 
-  // Begin accessing JSON data here
-  var data = JSON.parse(this.response.players);
-  if (request.status >= 200 && request.status < 400) {
-    data.forEach(wrestleer => {
-      const card = document.createElement('div');
-      card.setAttribute('class', 'card');
+          const thumb = document.createElement('img');
+          thumb.setAttribute('class', 'thumbnail');
+          thumb.src = value.strThumb;
+          
 
-      const h1 = document.createElement('h1');
-      h1.textContent = wrestler.strPlayer;
-
-      container.appendChild(card);
-      card.appendChild(h1);
-    });
-  } else {
-    const errorMessage = document.createElement('marquee');
-    errorMessage.textContent = `Gah, it's not working!`;
-    app.appendChild(errorMessage);
-  }
+          container.appendChild(card);
+          card.appendChild(thumb);
+          card.appendChild(h1);
+          
+          
+      })
+      app.appendChild(container);
+    }
+  });
 }
 
-request.send();
+
+
