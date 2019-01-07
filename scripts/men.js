@@ -15,19 +15,24 @@ window.onload = function(){
       $(data.player).each(function(index, value){
           console.log(value.strPlayer);
           const card = document.createElement('div')
-          card.setAttribute('class', card);
+          card.setAttribute('class', 'card');
 
           const h1 = document.createElement('h1');
           h1.textContent = value.strPlayer;
 
           const thumb = document.createElement('img');
           thumb.setAttribute('class', 'thumbnail');
-          thumb.src = value.strThumb;
+          if(value.strThumb != null){
+            thumb.src = value.strThumb;
+          }
+          else{
+            thumb.src = "../images/vacant.jpg";
+          }
           
-
-          container.appendChild(card);
           card.appendChild(thumb);
           card.appendChild(h1);
+          container.appendChild(card);
+          
           
           
       })
