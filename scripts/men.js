@@ -2,8 +2,14 @@ window.onload = function(){
   const apiURL = "https://www.thesportsdb.com/api/v1/json/1/lookup_all_players.php?id=135490";
 
   const app = document.getElementById("root");
+
+  const logo = document.createElement('img');
+  logo.setAttribute('class', 'logo');
+  logo.src = "../images/nxt.png"
+
   const container = document.createElement("div");
   container.setAttribute('class', 'container');
+  
 
   console.log(app == null);
   $.ajax({
@@ -36,6 +42,7 @@ window.onload = function(){
           
           
       })
+      app.appendChild(logo);
       app.appendChild(container);
     }
   });
